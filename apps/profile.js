@@ -14,11 +14,15 @@ export const profile_detal = karin.command(
     const char = Character.get(name, game.key)
     if (!char) {
       logger.info(`MysTool: 暂不支持查询${name}的角色面板`)
+      e.reply(`暂不支持查询${name}的角色面板`)
       return false
     }
 
     const uid = await new MysInfo(e).getUid()
-    if (!uid) return true
+    if (!uid) {
+      e.reply('请先扫码登录')
+      return true
+    }
 
     const key = `mys.${char.game}.profile`
     if (handler.has(key)) {
